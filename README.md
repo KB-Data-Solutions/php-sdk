@@ -150,7 +150,7 @@ This package follows [Semantic Versioning](https://semver.org/).
 
 ## Contributing
 
-Issues and pull requests are welcome.
+Issues and pull requests are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) for local setup, quality checks, and commit conventions. Please report security vulnerabilities as described in [SECURITY.md](SECURITY.md) instead of opening a public issue.
 
 ## License
 
