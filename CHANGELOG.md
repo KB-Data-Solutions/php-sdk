@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/KB-Data-Solutions/php-sdk/compare/v0.2.0...v0.2.1) (2026-09-01)
+
+
+### Bug Fixes
+
+* stop prefixing release tags with the package name ([bccfda2](https://github.com/KB-Data-Solutions/php-sdk/commit/bccfda29039d4be4157a97f9f6bc2b09e55e6cd3))
+
 ## [0.2.0](https://github.com/KB-Data-Solutions/php-sdk/compare/kb-data-solutions/php-sdk-v0.1.0...kb-data-solutions/php-sdk-v0.2.0) (2026-08-31)
 
 
