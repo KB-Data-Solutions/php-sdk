@@ -6,6 +6,7 @@
             "release-type": "simple",
             "package-name": "kb-data-solutions/php-sdk",
             "changelog-path": "CHANGELOG.md",
+            "include-component-in-tag": false,
             "extra-files": [
                 "version.txt"
             ]
