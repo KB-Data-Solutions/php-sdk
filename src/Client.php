@@ -31,6 +31,7 @@ final class Client
         string $clientId,
         string $clientSecret,
         string $baseUri,
+        string $platform,
         ?Transport $transport = null,
         ?Authenticator $authenticator = null,
         ?Clock $clock = null,
@@ -44,10 +45,10 @@ final class Client
             new Credentials($clientId, $clientSecret),
             new InMemoryTokenCache(),
             $clock,
-            [Scope::DebtorsWrite, Scope::InvoicesWrite, Scope::IntegrationRead],
+            [Scope::DebtorsWrite, Scope::InvoicesWrite, Scope::DebtorsRead, Scope::InvoicesRead],
         );
 
-        return new self(new ApiClient($transport, $authenticator), $sleeper);
+        return new self(new ApiClient($transport, $authenticator, $platform), $sleeper);
     }
 
     public function debtors(): DebtorsResource

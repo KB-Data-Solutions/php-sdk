@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace KBDataSolutions\Sdk\Invoice;
 
 /**
- * The backend's own domain model reserves "icp" and "oss", but request validation
- * currently accepts only "domestic". Modeling the single accepted case as an enum
- * documents this precisely; adding a case later is additive, not a breaking change.
+ * Mirrors the backend's App\Enums\Commerce\TaxTreatment. "domestic" (seller's own
+ * country), "icp" (EU B2B reverse charge), "oss" (EU B2C distance selling), and
+ * "export" (non-EU, zero-rated) are all accepted by the Commerce API.
  */
 enum TaxTreatment: string
 {
     case Domestic = 'domestic';
+    case Icp = 'icp';
+    case Oss = 'oss';
+    case Export = 'export';
 }

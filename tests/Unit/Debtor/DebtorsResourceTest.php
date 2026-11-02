@@ -30,7 +30,7 @@ final class DebtorsResourceTest extends TestCase
     {
         $this->transport = new FakeTransport();
         $authenticator = new FakeAuthenticator(new AccessToken('token', new DateTimeImmutable('+1 hour'), []));
-        $this->debtors = new DebtorsResource(new ApiClient($this->transport, $authenticator));
+        $this->debtors = new DebtorsResource(new ApiClient($this->transport, $authenticator, 'woocommerce'));
     }
 
     public function test_create_submits_the_request_and_maps_the_response(): void

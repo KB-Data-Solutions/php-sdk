@@ -23,6 +23,7 @@ final class ApiClient
     public function __construct(
         private readonly Transport $transport,
         private readonly Authenticator $authenticator,
+        private readonly string $platform,
     ) {
     }
 
@@ -31,7 +32,12 @@ final class ApiClient
      */
     public function get(string $path): array
     {
-        return $this->unwrap($this->dispatch(new TransportRequest('GET', $path, ['Accept' => 'application/json'])));
+        $headers = [
+            'Accept' => 'application/json',
+            'X-Commerce-Platform' => $this->platform,
+        ];
+
+        return $this->unwrap($this->dispatch(new TransportRequest('GET', $path, $headers)));
     }
 
     /**
@@ -43,6 +49,7 @@ final class ApiClient
         $headers = [
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
+            'X-Commerce-Platform' => $this->platform,
             'Idempotency-Key' => $idempotencyKey ?? IdempotencyKeyGenerator::generate(),
         ];
 
@@ -62,6 +69,7 @@ final class ApiClient
         $headers = [
             'Accept' => 'application/json',
             'Content-Type' => $built['contentType'],
+            'X-Commerce-Platform' => $this->platform,
             'Idempotency-Key' => $idempotencyKey ?? IdempotencyKeyGenerator::generate(),
         ];
 

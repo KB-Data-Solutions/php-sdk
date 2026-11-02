@@ -45,7 +45,7 @@ final class ClientTest extends TestCase
         $transport->queueResponse(new TransportResponse(200, [], '{"access_token":"token-1","token_type":"Bearer","expires_in":3600}'));
         $transport->queueResponse(new TransportResponse(200, [], json_encode(self::debtorPayload(), \JSON_THROW_ON_ERROR)));
 
-        $client = Client::create('client-id', 'client-secret', 'https://app.kbdatasolutions.nl', transport: $transport, clock: $clock);
+        $client = Client::create('client-id', 'client-secret', 'https://app.kbdatasolutions.nl', platform: 'woocommerce', transport: $transport, clock: $clock);
 
         $debtor = $client->debtors()->find('1');
 
@@ -53,6 +53,7 @@ final class ClientTest extends TestCase
         self::assertCount(2, $transport->sentRequests());
         self::assertSame('/oauth/token', $transport->sentRequests()[0]->path);
         self::assertSame('Bearer token-1', $transport->sentRequests()[1]->headers['Authorization']);
+        self::assertSame('woocommerce', $transport->sentRequests()[1]->headers['X-Commerce-Platform']);
     }
 
     public function test_the_default_authenticator_caches_the_token_across_calls_within_its_lifetime(): void
@@ -64,7 +65,7 @@ final class ClientTest extends TestCase
         $transport->queueResponse(new TransportResponse(200, [], json_encode(self::debtorPayload(), \JSON_THROW_ON_ERROR)));
         $transport->queueResponse(new TransportResponse(200, [], json_encode(self::debtorPayload(), \JSON_THROW_ON_ERROR)));
 
-        $client = Client::create('client-id', 'client-secret', 'https://app.kbdatasolutions.nl', transport: $transport, clock: $clock);
+        $client = Client::create('client-id', 'client-secret', 'https://app.kbdatasolutions.nl', platform: 'woocommerce', transport: $transport, clock: $clock);
 
         $client->debtors()->find('1');
         $client->debtors()->find('1');
@@ -80,7 +81,7 @@ final class ClientTest extends TestCase
 
         $transport->queueResponse(new TransportResponse(200, [], json_encode(self::debtorPayload(), \JSON_THROW_ON_ERROR)));
 
-        $client = Client::create('client-id', 'client-secret', 'https://app.kbdatasolutions.nl', transport: $transport, authenticator: $authenticator);
+        $client = Client::create('client-id', 'client-secret', 'https://app.kbdatasolutions.nl', platform: 'woocommerce', transport: $transport, authenticator: $authenticator);
 
         $client->debtors()->find('1');
 
@@ -95,7 +96,7 @@ final class ClientTest extends TestCase
         $sleeper = new FakeSleeper();
         $authenticator = new FakeAuthenticator(new AccessToken('token', new DateTimeImmutable('+1 hour'), []));
 
-        $client = Client::create('client-id', 'client-secret', 'https://app.kbdatasolutions.nl', transport: $transport, authenticator: $authenticator, sleeper: $sleeper);
+        $client = Client::create('client-id', 'client-secret', 'https://app.kbdatasolutions.nl', platform: 'woocommerce', transport: $transport, authenticator: $authenticator, sleeper: $sleeper);
 
         $pendingPayload = [
             'data' => [

@@ -28,7 +28,7 @@ final class ApiClientTest extends TestCase
     {
         $this->transport = new FakeTransport();
         $this->authenticator = new FakeAuthenticator(new AccessToken('token-1', new DateTimeImmutable('+1 hour'), []));
-        $this->apiClient = new ApiClient($this->transport, $this->authenticator);
+        $this->apiClient = new ApiClient($this->transport, $this->authenticator, 'woocommerce');
     }
 
     public function test_get_unwraps_the_data_envelope(): void
@@ -42,6 +42,7 @@ final class ApiClientTest extends TestCase
         $request = $this->transport->lastRequest();
         self::assertNotNull($request);
         self::assertSame('Bearer token-1', $request->headers['Authorization']);
+        self::assertSame('woocommerce', $request->headers['X-Commerce-Platform']);
     }
 
     public function test_post_json_generates_an_idempotency_key_when_none_given(): void
@@ -56,7 +57,20 @@ final class ApiClientTest extends TestCase
         self::assertArrayHasKey('Idempotency-Key', $request->headers);
         self::assertNotSame('', $request->headers['Idempotency-Key']);
         self::assertSame('application/json', $request->headers['Content-Type']);
+        self::assertSame('woocommerce', $request->headers['X-Commerce-Platform']);
         self::assertSame('{"type":"consumer"}', $request->body);
+    }
+
+    public function test_an_explicit_platform_override_is_sent_instead_of_the_default(): void
+    {
+        $apiClient = new ApiClient($this->transport, $this->authenticator, 'shopify');
+        $this->transport->queueResponse(new TransportResponse(200, [], '{"data":{"id":"1"}}'));
+
+        $apiClient->get('/api/v1/debtors/1');
+
+        $request = $this->transport->lastRequest();
+        self::assertNotNull($request);
+        self::assertSame('shopify', $request->headers['X-Commerce-Platform']);
     }
 
     public function test_post_json_uses_the_caller_supplied_idempotency_key_verbatim(): void
@@ -84,6 +98,7 @@ final class ApiClientTest extends TestCase
         self::assertStringContainsString('name="payload"', (string) $request->body);
         self::assertStringContainsString('name="document"; filename="invoice.pdf"', (string) $request->body);
         self::assertSame('my-key', $request->headers['Idempotency-Key']);
+        self::assertSame('woocommerce', $request->headers['X-Commerce-Platform']);
     }
 
     public function test_a_single_401_triggers_exactly_one_transparent_refresh_and_retry(): void

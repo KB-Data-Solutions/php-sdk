@@ -17,12 +17,16 @@ final readonly class CreateInvoiceRequest
 
     /**
      * @param list<InvoiceLine> $lines
+     * @param ?TaxTreatment $taxTreatment Leave null to let the Commerce API infer the
+     *                                    treatment (domestic/icp/oss/export) from the
+     *                                    destination country and debtor data — the
+     *                                    recommended default. Pass a value only when
+     *                                    the caller needs to declare it explicitly.
      */
     public function __construct(
         public string $externalInvoiceId,
         public DateTimeImmutable $invoiceDate,
         public Currency $currency,
-        public TaxTreatment $taxTreatment,
         public string $destinationCountry,
         public DecimalAmount $netAmount,
         public DecimalAmount $vatAmount,
@@ -32,6 +36,7 @@ final readonly class CreateInvoiceRequest
         public ?string $externalOrderId = null,
         public ?string $invoiceNumber = null,
         public ?DocumentUpload $document = null,
+        public ?TaxTreatment $taxTreatment = null,
     ) {
         if (trim($externalInvoiceId) === '') {
             throw new InvalidArgumentException('externalInvoiceId must not be empty.');
@@ -59,7 +64,7 @@ final readonly class CreateInvoiceRequest
             'invoice_number' => $this->invoiceNumber,
             'invoice_date' => $this->invoiceDate->format('Y-m-d'),
             'currency' => $this->currency->value,
-            'tax_treatment' => $this->taxTreatment->value,
+            'tax_treatment' => $this->taxTreatment?->value,
             'destination_country' => $this->destinationCountry,
             'net_amount' => $this->netAmount->value,
             'vat_amount' => $this->vatAmount->value,

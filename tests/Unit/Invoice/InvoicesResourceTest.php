@@ -33,7 +33,7 @@ final class InvoicesResourceTest extends TestCase
     {
         $this->transport = new FakeTransport();
         $authenticator = new FakeAuthenticator(new AccessToken('token', new DateTimeImmutable('+1 hour'), []));
-        $this->invoices = new InvoicesResource(new ApiClient($this->transport, $authenticator), new FakeSleeper());
+        $this->invoices = new InvoicesResource(new ApiClient($this->transport, $authenticator, 'woocommerce'), new FakeSleeper());
     }
 
     /**

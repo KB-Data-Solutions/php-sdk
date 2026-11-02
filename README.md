@@ -22,6 +22,7 @@ $client = Client::create(
     clientId: $clientId,
     clientSecret: $clientSecret,
     baseUri: 'https://app.kbdatasolutions.nl',
+    platform: 'woocommerce',
 );
 
 $debtor = $client->debtors()->find($debtorId);
@@ -30,6 +31,10 @@ $debtor = $client->debtors()->find($debtorId);
 ## Authentication
 
 The SDK authenticates using OAuth2 Client Credentials. Provide the `clientId` and `clientSecret` issued for your integration; the SDK handles token acquisition and renewal automatically.
+
+## Platform
+
+`platform` declares which commerce platform this integration's credentials are licensed for (e.g. `woocommerce`) — sent on every request as the `X-Commerce-Platform` header. The API rejects requests where it doesn't match the integration's own licensed platform, so copy-pasting one integration's credentials into a different platform's adapter fails rather than silently working. There's no SDK-side enum for this — platforms are a server-side configuration detail an adapter hardcodes, not something the SDK needs to know about ahead of time.
 
 ## Usage
 
@@ -49,6 +54,9 @@ $debtor = $client->debtors()->create(new CreateDebtorRequest(
     email: 'jane@example.test',
 ));
 
+// find() takes the internal `id` the API returned from create() — not the
+// `external_customer_id` you supplied — since that's what the `GET` endpoint
+// is keyed on.
 $debtor = $client->debtors()->find($debtor->id);
 ```
 

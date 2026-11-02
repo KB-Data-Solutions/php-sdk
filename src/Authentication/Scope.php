@@ -8,5 +8,6 @@ enum Scope: string
 {
     case DebtorsWrite = 'debtors:write';
     case InvoicesWrite = 'invoices:write';
-    case IntegrationRead = 'integration:read';
+    case DebtorsRead = 'debtors:read';
+    case InvoicesRead = 'invoices:read';
 }
