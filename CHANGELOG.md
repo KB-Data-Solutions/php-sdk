@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/KB-Data-Solutions/php-sdk/compare/v0.2.1...v0.3.0) (2026-11-02)
+
+
+### Features
+
+* send a platform header on every request and make tax_treatment inferrable server-side ([0fa8277](https://github.com/KB-Data-Solutions/php-sdk/commit/0fa8277a8494ee51201591935208c5dab2461c70))
+
 ## [0.2.1](https://github.com/KB-Data-Solutions/php-sdk/compare/v0.2.0...v0.2.1) (2026-09-01)
 
 
