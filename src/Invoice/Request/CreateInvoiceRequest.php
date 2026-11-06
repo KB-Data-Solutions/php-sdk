@@ -22,6 +22,8 @@ final readonly class CreateInvoiceRequest
      *                                    destination country and debtor data — the
      *                                    recommended default. Pass a value only when
      *                                    the caller needs to declare it explicitly.
+     * @param ?string $paymentMethod Raw webshop payment-method id (e.g. WooCommerce
+     *                               gateway slug), passed through unmodified.
      */
     public function __construct(
         public string $externalInvoiceId,
@@ -37,6 +39,7 @@ final readonly class CreateInvoiceRequest
         public ?string $invoiceNumber = null,
         public ?DocumentUpload $document = null,
         public ?TaxTreatment $taxTreatment = null,
+        public ?string $paymentMethod = null,
     ) {
         if (trim($externalInvoiceId) === '') {
             throw new InvalidArgumentException('externalInvoiceId must not be empty.');
@@ -65,6 +68,7 @@ final readonly class CreateInvoiceRequest
             'invoice_date' => $this->invoiceDate->format('Y-m-d'),
             'currency' => $this->currency->value,
             'tax_treatment' => $this->taxTreatment?->value,
+            'payment_method' => $this->paymentMethod,
             'destination_country' => $this->destinationCountry,
             'net_amount' => $this->netAmount->value,
             'vat_amount' => $this->vatAmount->value,

@@ -94,6 +94,33 @@ final class CreateInvoiceRequestTest extends TestCase
         self::assertNull($request->toArray()['tax_treatment']);
     }
 
+    public function test_to_array_sends_the_declared_payment_method(): void
+    {
+        $result = $this->makeRequest([$this->makeLine()])->toArray();
+
+        self::assertNull($result['payment_method']);
+
+        $request = new CreateInvoiceRequest(
+            externalInvoiceId: 'wc-order-1042',
+            invoiceDate: new DateTimeImmutable('2026-08-01'),
+            currency: Currency::Eur,
+            destinationCountry: 'NL',
+            netAmount: new DecimalAmount('10.00'),
+            vatAmount: new DecimalAmount('2.10'),
+            grossAmount: new DecimalAmount('12.10'),
+            lines: [$this->makeLine()],
+            debtor: new CreateDebtorRequest(
+                externalCustomerId: 'cust-1',
+                oneTime: false,
+                type: DebtorType::Consumer,
+                country: 'NL',
+            ),
+            paymentMethod: 'stripe',
+        );
+
+        self::assertSame('stripe', $request->toArray()['payment_method']);
+    }
+
     public function test_external_invoice_id_must_not_be_empty(): void
     {
         $this->expectException(InvalidArgumentException::class);
