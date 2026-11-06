@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/KB-Data-Solutions/php-sdk/compare/v0.3.0...v0.4.0) (2026-11-06)
+
+
+### Features
+
+* add an optional payment_method field to invoice creation ([bcccb43](https://github.com/KB-Data-Solutions/php-sdk/commit/bcccb432deceb4882b72aee55b4c26b94560f8f0))
+
 ## [0.3.0](https://github.com/KB-Data-Solutions/php-sdk/compare/v0.2.1...v0.3.0) (2026-11-02)
 
 
