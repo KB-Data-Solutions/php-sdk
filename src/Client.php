@@ -16,6 +16,8 @@ use KBDataSolutions\Sdk\Debtor\DebtorsResource;
 use KBDataSolutions\Sdk\Http\DiscoveryTransportFactory;
 use KBDataSolutions\Sdk\Http\Transport;
 use KBDataSolutions\Sdk\Invoice\InvoicesResource;
+use KBDataSolutions\Sdk\Payment\PaymentsResource;
+use KBDataSolutions\Sdk\PaymentMethod\PaymentMethodsResource;
 use KBDataSolutions\Sdk\Support\SystemClock;
 use KBDataSolutions\Sdk\Support\SystemSleeper;
 
@@ -54,6 +56,16 @@ final class Client
     public function debtors(): DebtorsResource
     {
         return new DebtorsResource($this->apiClient);
+    }
+
+    public function paymentMethods(): PaymentMethodsResource
+    {
+        return new PaymentMethodsResource($this->apiClient);
+    }
+
+    public function payments(): PaymentsResource
+    {
+        return new PaymentsResource($this->apiClient);
     }
 
     public function invoices(): InvoicesResource
