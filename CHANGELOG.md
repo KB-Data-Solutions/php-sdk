@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.0](https://github.com/KB-Data-Solutions/php-sdk/compare/v0.4.0...v0.5.0) (2026-11-14)
+
+
+### Features
+
+* add payment method sync and confirmations ([903f8d2](https://github.com/KB-Data-Solutions/php-sdk/commit/903f8d2022afd79760abfed12370094d9d11d98e))
+* add payment method sync and confirmations ([08c6bfc](https://github.com/KB-Data-Solutions/php-sdk/commit/08c6bfcc8231e31c1228a69ab3709a65cfcaa1c9))
+
 ## [0.4.0](https://github.com/KB-Data-Solutions/php-sdk/compare/v0.3.0...v0.4.0) (2026-11-06)
 
 
