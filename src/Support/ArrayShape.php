@@ -59,6 +59,18 @@ final class ArrayShape
         return $value;
     }
 
+    /** @param array<array-key, mixed> $data */
+    public static function requireInt(array $data, string $field): int
+    {
+        $value = $data[$field] ?? null;
+
+        if (!\is_int($value)) {
+            throw self::mismatch($field, 'int', $value);
+        }
+
+        return $value;
+    }
+
     /**
      * @param array<array-key, mixed> $data
      */

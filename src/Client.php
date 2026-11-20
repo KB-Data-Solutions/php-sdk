@@ -15,6 +15,7 @@ use KBDataSolutions\Sdk\Contract\Sleeper;
 use KBDataSolutions\Sdk\Debtor\DebtorsResource;
 use KBDataSolutions\Sdk\Http\DiscoveryTransportFactory;
 use KBDataSolutions\Sdk\Http\Transport;
+use KBDataSolutions\Sdk\ImportJob\ImportJobsResource;
 use KBDataSolutions\Sdk\Invoice\InvoicesResource;
 use KBDataSolutions\Sdk\Payment\PaymentsResource;
 use KBDataSolutions\Sdk\PaymentMethod\PaymentMethodsResource;
@@ -66,6 +67,11 @@ final class Client
     public function payments(): PaymentsResource
     {
         return new PaymentsResource($this->apiClient);
+    }
+
+    public function importJobs(): ImportJobsResource
+    {
+        return new ImportJobsResource($this->apiClient);
     }
 
     public function invoices(): InvoicesResource
