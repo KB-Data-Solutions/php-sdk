@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.0](https://github.com/KB-Data-Solutions/php-sdk/compare/v0.5.0...v0.6.0) (2026-11-20)
+
+
+### Features
+
+* add import jobs resource for historical order imports ([bf0b688](https://github.com/KB-Data-Solutions/php-sdk/commit/bf0b688607a15ff07816aa8575b8742aff5e7e19))
+* add import jobs resource for historical order imports ([be1e923](https://github.com/KB-Data-Solutions/php-sdk/commit/be1e923d224ff6a0a56321fe6163c5e375ae3d65))
+
 ## [0.5.0](https://github.com/KB-Data-Solutions/php-sdk/compare/v0.4.0...v0.5.0) (2026-11-14)
 
 
